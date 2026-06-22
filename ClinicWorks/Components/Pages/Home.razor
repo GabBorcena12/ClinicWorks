@@ -30,7 +30,7 @@
     <header class="site-header">
         <div class="container navbar">
             <a class="brand" href="#home" aria-label="LifeNest Women’s Clinic home">
-                <span class="brand__mark" aria-hidden="true"><span>♥</span></span>
+                <img class="brand__logo" src="images/lifenest-logo-final-transparent.png" alt="" aria-hidden="true" />
                 <span><strong>LifeNest</strong><small>Women’s Clinic</small></span>
             </a>
             <div class="navbar-actions">
@@ -212,17 +212,16 @@
             <div class="container appointment-layout">
                 <div class="appointment-copy"><p class="eyebrow"><span></span> Appointment request</p><h2>Request an Appointment</h2><p>Send your preferred visit details and the clinic team will guide you through the next steps.</p><div class="appointment-photo photo-placeholder appointment-photo--real"><img class="clinic-image" src="images/clinic/appointment-exam-room-user.jpg" alt="Clean and comfortable women’s clinic examination room prepared for an appointment" /><div class="privacy-seal"><b>⌾</b><span><strong>Privacy matters</strong>Your appointment request is treated with privacy and care.</span></div></div><div class="contact-stack"><span><b>☎</b><small>Primary phone</small><strong>+63 917 824 5631</strong></span><span><b>☎</b><small>Secondary phone</small><strong>+63 2 8456 2034</strong></span><span><b>✉</b><small>Appointments</small><strong>appointments@lifenestwomensclinic.com</strong></span><span><b>⌖</b><small>Visit us</small><strong>Suite 204, Aurora Medical Plaza<br />Quirino Highway, San Jose del Monte<br />Bulacan, Philippines</strong></span></div></div>
                 <div class="form-card">
-                    @if (submitted)
-                    {
-                        <div class="success-message" role="status"><span>✓</span><h3>Appointment request received!</h3><p>Thank you. This is a preview confirmation; no information was sent or stored.</p><button class="button button--ghost" type="button" @onclick="ResetForm">Send another request</button></div>
-                    }
-                    else
-                    {
-                        <form @onsubmit="SubmitForm" @onsubmit:preventDefault>
-                            <div class="form-grid"><label>Full Name<input required autocomplete="name" placeholder="Your full name" /></label><label>Contact Number<input required type="tel" autocomplete="tel" placeholder="Your phone number" /></label><label>Preferred Date<input required type="date" /></label><label>Preferred Time<select required><option value="">Select a time</option><option>Morning</option><option>Afternoon</option></select></label><label class="full">Service Needed<select required><option value="">Select a service</option>@foreach (var service in Services){<option>@service.Title</option>}</select></label><label class="full">Message<textarea rows="4" placeholder="How can we help? (Optional)"></textarea></label></div>
-                            <button class="button button--wide" type="submit">Request Appointment <span>→</span></button><small class="privacy-note">⌾ Your appointment request is treated with privacy and care. This website preview does not transmit or store information.</small>
-                        </form>
-                    }
+                    <form class="appointment-form" action="https://api.staticforms.dev/submit" method="post" novalidate>
+                        <!-- The real Static Forms API key is injected during GitHub Actions deployment using the STATIC_FORMS_API_KEY repository secret. -->
+                        <input type="hidden" name="apiKey" value="__STATIC_FORMS_API_KEY__" />
+                        <input type="hidden" name="subject" value="New LifeNest Appointment Request" />
+                        <div class="form-grid"><label>Full Name<input name="name" required autocomplete="name" placeholder="Your full name" /></label><label>Contact Number<input name="phone" required type="tel" autocomplete="tel" placeholder="Your phone number" /></label><label>Preferred Date<input name="preferredDate" required type="date" /></label><label>Preferred Time<select name="preferredTime" required><option value="">Select a time</option><option>Morning</option><option>Afternoon</option></select></label><label class="full">Service Needed<select name="service" required><option value="">Select a service</option>@foreach (var service in Services){<option>@service.Title</option>}</select></label><label class="full">Message<textarea name="message" rows="4" placeholder="How can we help? (Optional)"></textarea></label></div>
+                        <input type="text" name="honeypot" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                        <button class="button button--wide" type="submit" data-submit-label="Request Appointment">Request Appointment <span>→</span></button>
+                        <p class="form-status" id="appointment-form-status" role="status" aria-live="polite"></p>
+                        <small class="privacy-note">⌾ Your appointment request is treated with privacy and care.</small>
+                    </form>
                 </div>
             </div>
         </section>
@@ -243,15 +242,26 @@
     </main>
 
     <footer id="contact">
-        <div class="container footer-grid"><div><a class="brand brand--footer" href="#home"><span class="brand__mark"><span>♥</span></span><span><strong>LifeNest</strong><small>Women’s Clinic</small></span></a><p>LifeNest Women’s Clinic provides compassionate OB-GYN care, pregnancy consultation, and women’s health support in a calm and respectful setting.</p></div><div><h3>Quick links</h3><a href="#about">About</a><a href="#services">Services</a><a href="#doctor">Doctor</a><a href="#appointment">Appointment</a></div><div><h3>Clinic</h3><span>Suite 204, Aurora Medical Plaza<br />Quirino Highway, San Jose del Monte<br />Bulacan, Philippines</span><a href="tel:+639178245631">+63 917 824 5631</a><a href="tel:+63284562034">+63 2 8456 2034</a><a href="mailto:care@lifenestwomensclinic.com">care@lifenestwomensclinic.com</a></div><div><h3>Hours</h3><span>Monday–Friday: 9:00 AM–5:00 PM</span><span>Saturday: 9:00 AM–2:00 PM</span><span>Sunday: By Appointment Only</span></div></div>
+        <div class="container footer-grid"><div><a class="brand brand--footer" href="#home"><img class="brand__logo" src="images/lifenest-logo-final-transparent.png" alt="" aria-hidden="true" /><span><strong>LifeNest</strong><small>Women’s Clinic</small></span></a><p>LifeNest Women’s Clinic provides compassionate OB-GYN care, pregnancy consultation, and women’s health support in a calm and respectful setting.</p></div><div><h3>Quick links</h3><a href="#about">About</a><a href="#services">Services</a><a href="#doctor">Doctor</a><a href="#appointment">Appointment</a></div><div><h3>Clinic</h3><span>Suite 204, Aurora Medical Plaza<br />Quirino Highway, San Jose del Monte<br />Bulacan, Philippines</span><a href="tel:+639178245631">+63 917 824 5631</a><a href="tel:+63284562034">+63 2 8456 2034</a><a href="mailto:care@lifenestwomensclinic.com">care@lifenestwomensclinic.com</a></div><div><h3>Hours</h3><span>Monday–Friday: 9:00 AM–5:00 PM</span><span>Saturday: 9:00 AM–2:00 PM</span><span>Sunday: By Appointment Only</span></div></div>
         <div class="container footer-bottom"><span>© @DateTime.Now.Year LifeNest Women’s Clinic. All rights reserved.</span><span>Privacy-friendly care · Placeholder clinic information</span></div>
     </footer>
+</div>
+
+<div class="appointment-success-modal" id="appointment-success-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="appointment-success-title">
+    <div class="appointment-success-panel" role="document">
+        <button class="appointment-success-close" type="button" aria-label="Close appointment confirmation">×</button>
+        <span class="success-icon" aria-hidden="true">✓</span>
+        <p class="eyebrow"><span></span> Request sent</p>
+        <h2 id="appointment-success-title">Thank you for your appointment request!</h2>
+        <p>Your details were sent successfully. The LifeNest clinic team will contact you to confirm availability.</p>
+        <button class="button appointment-success-close" type="button">Close</button>
+        <small>Your request will be reviewed with privacy and care.</small>
+    </div>
 </div>
 
 @code {
     private IJSObjectReference? navigationModule;
     private bool menuOpen;
-    private bool submitted;
     private bool whyExpanded;
     private bool servicesExpanded;
     private bool testimonialsExpanded;
@@ -259,8 +269,6 @@
     private int? openFaq;
     private void ToggleMenu() => menuOpen = !menuOpen;
     private void CloseMenu() => menuOpen = false;
-    private void SubmitForm() => submitted = true;
-    private void ResetForm() => submitted = false;
     private void ToggleFaq(int index) => openFaq = openFaq == index ? null : index;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

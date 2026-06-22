@@ -1,9 +1,32 @@
 const toggle=document.querySelector('#menu'),nav=document.querySelector('#nav');
 toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',open);});
 nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false');}));
-const form=document.querySelector('#appointment-form'),success=document.querySelector('#success');
-form.addEventListener('submit',event=>{event.preventDefault();form.hidden=true;success.hidden=false;success.focus();});
-document.querySelector('#reset').addEventListener('click',()=>{form.reset();form.hidden=false;success.hidden=true;});
+const form=document.querySelector('#appointment-form'),appointmentModal=document.querySelector('#appointment-success-modal'),formStatus=document.querySelector('#appointment-form-status');
+const setFormStatus=(type,message)=>{formStatus.classList.remove('success','error');if(type)formStatus.classList.add(type);formStatus.textContent=message||'';};
+const openAppointmentModal=()=>{appointmentModal.classList.add('is-open');appointmentModal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');appointmentModal.querySelector('.appointment-success-close')?.focus();};
+const closeAppointmentModal=()=>{appointmentModal.classList.remove('is-open');appointmentModal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');};
+appointmentModal.querySelectorAll('.appointment-success-close').forEach(button=>button.addEventListener('click',closeAppointmentModal));
+appointmentModal.addEventListener('click',event=>{if(event.target===appointmentModal)closeAppointmentModal();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&appointmentModal.classList.contains('is-open'))closeAppointmentModal();});
+form.addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(form.dataset.submitting==='true')return;
+  setFormStatus('','');
+  if(!form.checkValidity()){form.reportValidity();return;}
+  const formData=new FormData(form);
+  if(String(formData.get('honeypot')||'').trim())return;
+  const submitButton=form.querySelector("button[type='submit']"),submitLabel=submitButton?.dataset.submitLabel||'Request Appointment',originalButtonContent=submitButton?.innerHTML||submitLabel;
+  form.dataset.submitting='true';form.classList.add('is-submitting');submitButton.disabled=true;submitButton.textContent='Sending...';
+  try{
+    const message=String(formData.get('message')||'').trim();
+    formData.set('message',[`Preferred Date: ${String(formData.get('preferredDate')||'')}`,`Preferred Time: ${String(formData.get('preferredTime')||'')}`,`Service Needed: ${String(formData.get('service')||'')}`,`Contact Number: ${String(formData.get('phone')||'')}`,'',message||'No additional message provided.'].join('\n'));
+    const response=await fetch(form.action,{method:form.method||'POST',headers:{Accept:'application/json'},body:formData});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok||result.success===false)throw new Error(result.message||'The appointment request could not be sent.');
+    form.reset();submitButton.textContent='Sent';openAppointmentModal();
+  }catch(error){console.error(error);setFormStatus('error','We could not send your request. Please check your connection and try again.');delete form.dataset.submitting;submitButton.disabled=false;submitButton.innerHTML=originalButtonContent;}
+  finally{form.classList.remove('is-submitting');}
+});
 
 const header=document.querySelector('header');
 const updateHeader=()=>header.classList.toggle('scrolled',window.scrollY>8);
