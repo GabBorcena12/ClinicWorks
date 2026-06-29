@@ -30,7 +30,6 @@ jobs:
         run: |
           rm -rf ./site
           cp -R ./docs ./site
-          find ./site -type f \( -name "*.html" -o -name "*.js" \) -exec sed -i "s|__STATIC_FORMS_API_KEY__|${{ secrets.STATIC_FORMS_API_KEY }}|g" {} +
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

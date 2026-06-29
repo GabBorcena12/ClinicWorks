@@ -1,0 +1,266 @@
+@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>PawCare Animal Clinic | Veterinary Care in San Jose del Monte</PageTitle>
+<HeadContent>
+    <meta name="description" content="PawCare Animal Clinic provides practical, compassionate veterinary care for dogs and cats in San Jose del Monte, Bulacan." />
+    <meta name="theme-color" content="#165c52" />
+    <script type="application/ld+json">@((MarkupString)SchemaJson)</script>
+</HeadContent>
+
+<div class="site-shell">
+    <div class="contact-bar">
+        <div class="container contact-bar__inner">
+            <span>Monday to Saturday &middot; 9:00 AM - 6:00 PM</span>
+            <div>
+                <a href="tel:+639174827381">0917 482 7381</a>
+                <a href="mailto:hello@pawcareanimalclinic.com">hello@pawcareanimalclinic.com</a>
+                <span>San Jose del Monte, Bulacan</span>
+            </div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container navbar">
+            <a class="brand" href="#home" aria-label="PawCare Animal Clinic home">
+                <img class="brand__logo" src="images/pawcare-logo.png" alt="PawCare Animal Clinic" />
+            </a>
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="@menuOpen" @onclick="ToggleMenu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="main-nav @(menuOpen ? "is-open" : null)" aria-label="Main navigation">
+                <a href="#home" @onclick="CloseMenu">Home</a>
+                <a href="#about" @onclick="CloseMenu">About</a>
+                <a href="#services" @onclick="CloseMenu">Services</a>
+                <a href="#clinic" @onclick="CloseMenu">Clinic</a>
+                <a href="#veterinarian" @onclick="CloseMenu">Veterinarian</a>
+                <a href="#faq" @onclick="CloseMenu">FAQ</a>
+                <a class="button button--small" href="#contact" @onclick="CloseMenu">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero__grid">
+                <div class="hero__content">
+                    <p class="eyebrow">Neighborhood care for dogs and cats</p>
+                    <h1>Gentle Veterinary Care for Every Stage of Your Pet's Life</h1>
+                    <p class="hero__lead">PawCare Animal Clinic provides routine checkups, vaccinations, deworming, basic treatment, grooming support, and preventive care guidance for pets and their families.</p>
+                    <div class="hero__actions">
+                        <a class="button" href="#services">View Our Services</a>
+                        <a class="button button--secondary" href="#contact">Contact the Clinic</a>
+                    </div>
+                </div>
+                <figure class="clinic-photo clinic-photo--hero">
+                    <img src="images/pawcare-consultation.png" alt="PawCare veterinarian examining a dog while speaking with its owner" />
+                    <figcaption><strong>Gentle, attentive care</strong><span>Clear guidance for every pet owner</span></figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="visit-strip" aria-label="Clinic visit information">
+            <div class="container visit-strip__grid">
+                <article><span>Hours</span><strong>Mon-Sat, 9 AM-6 PM</strong></article>
+                <article><span>Location</span><strong>San Jose del Monte, Bulacan</strong></article>
+                <article><span>Appointments</span><strong>Recommended; walk-ins may be accepted</strong></article>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="container split-layout">
+                <div>
+                    <p class="eyebrow">About PawCare</p>
+                    <h2>A dependable clinic for everyday pet health</h2>
+                    <p>PawCare Animal Clinic is a community-based veterinary clinic that helps pet owners keep their dogs and cats healthy through regular checkups, preventive care, vaccination, deworming, and practical health advice.</p>
+                    <p>We explain pet health concerns in clear, friendly language and support first-time pet owners with realistic next steps. Our clinic environment is kept clean, calm, and organized for pets and their families.</p>
+                    <ul class="check-list">
+                        <li>Care for dogs and cats</li>
+                        <li>Preventive care and responsible pet ownership</li>
+                        <li>Support for first-time pet owners</li>
+                        <li>Clear home-care and follow-up guidance</li>
+                    </ul>
+                </div>
+                <figure class="clinic-photo clinic-photo--about"><img src="images/reception-area.png" alt="Clean and welcoming reception area at PawCare Animal Clinic" /></figure>
+            </div>
+        </section>
+
+        <section class="section section--tint" id="services">
+            <div class="container">
+                <div class="section-heading">
+                    <div><p class="eyebrow">Veterinary services</p><h2>Practical care for healthier pets</h2></div>
+                    <p>Services are recommended based on your pet's age, history, symptoms, and physical assessment.</p>
+                </div>
+                <div class="card-grid service-grid">
+                    @foreach (var service in Services)
+                    {
+                        <article class="card service-card"><span class="card__icon" aria-hidden="true">@service.Icon</span><h3>@service.Title</h3><p>@service.Description</p></article>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="why-pawcare">
+            <div class="container">
+                <div class="section-heading section-heading--center">
+                    <div><p class="eyebrow">Why choose PawCare</p><h2>Care that makes visits easier to understand</h2></div>
+                    <p>We focus on calm handling, straightforward communication, and useful support between visits.</p>
+                </div>
+                <div class="card-grid why-grid">
+                    @foreach (var reason in Reasons)
+                    {
+                        <article class="card"><span class="card__number">@reason.Number</span><h3>@reason.Title</h3><p>@reason.Description</p></article>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--cream" id="clinic">
+            <div class="container">
+                <div class="section-heading">
+                    <div><p class="eyebrow">Clinic environment</p><h2>Spaces planned around routine pet care</h2></div>
+                    <p>Each area supports an organized visit while helping pets and owners feel at ease.</p>
+                </div>
+                <div class="environment-grid">
+                    @foreach (var space in ClinicSpaces)
+                    {
+                        <article class="environment-card">
+                            <figure class="clinic-photo clinic-photo--space"><img src="@space.ImagePath" alt="@space.Title at PawCare Animal Clinic" /></figure>
+                            <div><h3>@space.Title</h3><p>@space.Description</p></div>
+                        </article>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="veterinarian">
+            <div class="container veterinarian-card">
+                <figure class="clinic-photo clinic-photo--portrait"><img src="images/dr-andrea-santos.png" alt="Dr. Andrea M. Santos, veterinarian at PawCare Animal Clinic" /></figure>
+                <div>
+                    <p class="eyebrow">Meet the veterinarian</p>
+                    <h2>Dr. Andrea M. Santos, DVM</h2>
+                    <p class="role">Veterinarian</p>
+                    <p>Dr. Andrea M. Santos provides general veterinary care with a focus on preventive health, vaccination, deworming, basic treatment, and pet wellness education. She works closely with pet owners to explain health concerns clearly and recommend practical care steps.</p>
+                    <div class="detail-grid"><span><small>Care focus</small><strong>Preventive health and pet wellness</strong></span><span><small>Clinic schedule</small><strong>Monday to Saturday</strong></span></div>
+                    <a class="button" href="#contact">Contact the Clinic</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--teal testimonials" aria-labelledby="testimonials-title">
+            <div class="container">
+                <div class="section-heading section-heading--light"><div><p class="eyebrow">Pet owner feedback</p><h2 id="testimonials-title">What clients say about their visits</h2></div></div>
+                <div class="card-grid testimonial-grid">
+                    @foreach (var testimonial in Testimonials)
+                    {
+                        <blockquote><p>&ldquo;@testimonial.Quote&rdquo;</p><footer>@testimonial.Name</footer></blockquote>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <div class="container faq-layout">
+                <div><p class="eyebrow">Frequently asked questions</p><h2>Helpful information before your visit</h2><p>Contact the clinic if you need guidance about your pet's specific situation.</p></div>
+                <div class="faq-list">
+                    @foreach (var item in Faqs)
+                    {
+                        <details><summary>@item.Question</summary><p>@item.Answer</p></details>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-section" id="contact">
+            <div class="container contact-card">
+                <div>
+                    <p class="eyebrow">Contact PawCare</p>
+                    <h2>Plan your pet's clinic visit</h2>
+                    <p>For appointments, vaccination schedules, grooming availability, and general inquiries, please contact the clinic during operating hours.</p>
+                    <div class="contact-actions"><a class="button" href="tel:+639174827381">Call 0917 482 7381</a><a class="button button--secondary" href="mailto:hello@pawcareanimalclinic.com">Send an Email</a></div>
+                </div>
+                <address class="contact-details">
+                    <span><small>Clinic hours</small><strong>Monday to Saturday<br />9:00 AM - 6:00 PM</strong></span>
+                    <span><small>Email</small><a href="mailto:hello@pawcareanimalclinic.com">hello@pawcareanimalclinic.com</a></span>
+                    <span><small>Location</small><strong>San Jose del Monte, Bulacan</strong></span>
+                </address>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a class="brand brand--footer" href="#home"><img class="footer-logo" src="pawcare_favicon_white.ico" alt="" /><strong>PawCare Animal Clinic</strong></a>
+                <p>Compassionate everyday veterinary care for dogs and cats.</p>
+            </div>
+            <section class="footer-column" aria-labelledby="footer-hours-title"><h3 id="footer-hours-title">Clinic Hours</h3><p>Monday to Saturday<br />9:00 AM - 6:00 PM</p></section>
+            <address class="footer-column"><h3>Contact Details</h3><a href="tel:+639174827381">0917 482 7381</a><a href="mailto:hello@pawcareanimalclinic.com">hello@pawcareanimalclinic.com</a><span>San Jose del Monte, Bulacan</span></address>
+        </div>
+        <div class="container footer-bottom"><span>&copy; 2026 PawCare Animal Clinic. All rights reserved.</span><span>General veterinary care for dogs and cats.</span></div>
+    </footer>
+</div>
+
+@code {
+    private bool menuOpen;
+    private void ToggleMenu() => menuOpen = !menuOpen;
+    private void CloseMenu() => menuOpen = false;
+
+    private const string SchemaJson = """
+    {"@context":"https://schema.org","@type":"VeterinaryCare","name":"PawCare Animal Clinic","description":"Practical, compassionate veterinary care for dogs and cats.","telephone":"+63 917 482 7381","email":"hello@pawcareanimalclinic.com","address":{"@type":"PostalAddress","addressLocality":"San Jose del Monte","addressRegion":"Bulacan","addressCountry":"PH"},"openingHours":"Mo-Sa 09:00-18:00"}
+    """;
+
+    private static readonly Service[] Services =
+    [
+        new("01", "Pet Consultation", "General health consultations for pets with concerns such as appetite changes, skin issues, vomiting, diarrhea, coughing, or unusual behavior."),
+        new("02", "Vaccination", "Core and recommended vaccines to help protect dogs and cats from common preventable diseases."),
+        new("03", "Deworming", "Routine deworming support for puppies, kittens, and adult pets based on age, weight, and health condition."),
+        new("04", "Pet Wellness Checkup", "Regular health checks to monitor your pet's weight, skin, coat, eyes, ears, teeth, and overall condition."),
+        new("05", "Basic Laboratory Support", "Basic diagnostic support may be recommended when your pet needs further assessment before treatment."),
+        new("06", "Minor Wound Care", "Assessment and basic care for minor cuts, scratches, skin irritation, and small wounds."),
+        new("07", "Grooming Support", "Bathing, coat care, nail trimming, and hygiene support to help keep pets clean and comfortable."),
+        new("08", "Preventive Care Advice", "Practical guidance on nutrition, parasite prevention, vaccination schedules, hygiene, and home care.")
+    ];
+
+    private static readonly Reason[] Reasons =
+    [
+        new("01", "Compassionate Handling", "We handle pets with patience and care to help reduce stress during visits."),
+        new("02", "Clear Explanations", "We explain findings, care options, and next steps in a way pet owners can easily understand."),
+        new("03", "Preventive Care Focus", "We encourage routine checkups, vaccination, parasite prevention, and early health monitoring."),
+        new("04", "Clean Clinic Environment", "Our clinic is designed to stay organized, comfortable, and safe for pets and owners."),
+        new("05", "Practical Pet Owner Guidance", "We provide realistic advice for feeding, grooming, home care, and follow-up monitoring.")
+    ];
+
+    private static readonly ClinicSpace[] ClinicSpaces =
+    [
+        new("images/reception-area.png", "Reception Area", "A welcoming area where pet owners can check in, ask questions, and wait comfortably before consultation."),
+        new("images/consultation-room.png", "Consultation Room", "A clean space for physical exams, health discussions, and treatment planning."),
+        new("images/grooming-area.png", "Grooming Area", "A dedicated area for basic grooming and hygiene services."),
+        new("images/pet-care-area.png", "Pet Care Area", "A calm space for basic care, observation, and routine clinic support.")
+    ];
+
+    private static readonly Testimonial[] Testimonials =
+    [
+        new("Maria L.", "We brought our dog for vaccination and a general checkup. The staff explained the schedule clearly and gave us helpful reminders for the next visit."),
+        new("Joseph R.", "Our cat had skin irritation, and the consultation was handled calmly. We appreciated the clear explanation and home care instructions."),
+        new("Camille D.", "The clinic feels clean and approachable. It was our puppy's first visit, and they guided us on vaccination, deworming, and feeding."),
+        new("Renz A.", "Good experience for basic grooming and health advice. The team was patient with our nervous dog.")
+    ];
+
+    private static readonly Faq[] Faqs =
+    [
+        new("Do I need an appointment?", "Appointments are recommended so the clinic can manage waiting time, but walk-in visits may be accepted depending on daily availability."),
+        new("What pets do you accept?", "The clinic mainly provides care for dogs and cats. For other pets, please contact the clinic first before visiting."),
+        new("Do you offer vaccinations?", "Yes. Vaccination schedules may vary depending on your pet's age, health condition, and previous vaccine history."),
+        new("When should my pet be dewormed?", "Deworming depends on your pet's age, weight, lifestyle, and previous treatment history. The veterinarian will recommend an appropriate schedule."),
+        new("Do you provide grooming?", "Yes. Basic grooming support may include bathing, nail trimming, coat care, and hygiene assistance depending on availability."),
+        new("What should I bring on my pet's first visit?", "Bring any vaccination card, medical record, current medication details, and notes about symptoms or behavior changes."),
+        new("Do you handle emergency cases?", "The clinic provides general veterinary care. For urgent or critical emergencies, pet owners may be referred to a veterinary emergency facility.")
+    ];
+
+    private sealed record Service(string Icon, string Title, string Description);
+    private sealed record Reason(string Number, string Title, string Description);
+    private sealed record ClinicSpace(string ImagePath, string Title, string Description);
+    private sealed record Testimonial(string Name, string Quote);
+    private sealed record Faq(string Question, string Answer);
+}
