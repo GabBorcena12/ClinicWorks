@@ -1,36 +1,124 @@
-# PawCare Animal Clinic Website
+# LifeNest Women's Clinic Website
 
-A responsive veterinary clinic website for PawCare Animal Clinic in San Jose del Monte, Bulacan.
+A responsive website concept for **LifeNest Women's Clinic**, an OB-GYN and women’s health clinic focused on compassionate, private, and professional care.
 
-## Website sections
+The website is designed to help patients quickly understand the clinic’s services, meet the doctor, view clinic hours, learn about the clinic environment, and request an appointment.
 
-- Home and clinic visit information
-- About PawCare
-- Veterinary services
-- Why choose PawCare
-- Clinic environment
-- Veterinarian profile
-- Client feedback
-- Frequently asked questions
-- Phone, email, hours, and location
+---
 
-## Project structure
+## Website Purpose
 
-- `VetWorks/` contains the Blazor website.
-- `docs/` contains the matching standalone site used by GitHub Pages.
-- `VetWorks/Components/Pages/Home.razor` contains the main page content.
-- `VetWorks/wwwroot/app.css` and `docs/site.css` contain the responsive visual styles.
+This website presents LifeNest Women’s Clinic as a warm, reliable, and patient-centered clinic for women’s health and pregnancy care.
 
-The website uses styled media areas until approved clinic photographs are available. Contact actions open the visitor's phone or email app; there is no online booking service, database, login, payment flow, or external API.
+It is designed for patients who want to:
 
-## Run locally
+- Learn about the clinic
+- View available women’s health services
+- Meet the OB-GYN doctor
+- Check clinic schedule and contact details
+- See the clinic environment
+- Read common patient questions
+- Send an appointment request
 
-```powershell
-dotnet run --project VetWorks\VetWorks.csproj
-```
+---
 
-## Build
+## Main Website Sections
 
-```powershell
-dotnet build VetWorks.slnx -c Release
-```
+### Home
+
+Introduces the clinic with a warm headline, short description, key trust points, and quick action buttons for appointment booking and services.
+
+### Our Clinic
+
+Explains the clinic’s approach to women’s health care, privacy, comfort, and patient support.
+
+### Care Services
+
+Lists the main OB-GYN and women’s health services offered by the clinic, such as consultations, pregnancy care, reproductive health support, and preventive care.
+
+### Why LifeNest
+
+Highlights the reasons patients may choose the clinic, including privacy, professional care, clear guidance, and a calm clinic experience.
+
+### Patient Experience
+
+Shows the type of care patients can expect during their visit, including respectful communication, privacy, and supportive consultation.
+
+### Meet the Doctor
+
+Presents the clinic doctor profile, professional background, care approach, and patient-focused message.
+
+### Clinic Environment
+
+Displays the clinic spaces, such as the reception area, consultation room, patient care area, and waiting area.
+
+### Clinic Schedule
+
+Shows clinic hours, available visit days, location details, and appointment guidance.
+
+### Patient FAQs
+
+Answers common patient questions about appointments, consultations, pregnancy visits, privacy, and clinic preparation.
+
+### Appointment Request
+
+Allows patients to send their preferred visit details through a simple frontend appointment form.
+
+### Contact
+
+Displays important contact details such as phone number, message option, email, and clinic location.
+
+---
+
+## Content Notes
+
+The current clinic name, doctor name, contact details, clinic schedule, and location are placeholders.
+
+Before using this website for a real clinic, make sure to verify and replace:
+
+- Clinic name
+- Doctor name and credentials
+- Clinic address
+- Contact number
+- Email address
+- Consultation schedule
+- Appointment instructions
+- Medical service descriptions
+- Privacy and patient consent details
+
+---
+
+## Patient-Focused Features
+
+- Clear clinic introduction
+- Easy-to-read service sections
+- Mobile-friendly layout
+- Floating Call and Message buttons
+- Simple appointment request form
+- FAQ section for common patient concerns
+- Clinic environment images for trust and familiarity
+- Professional doctor profile section
+
+---
+
+## Production Checklist
+
+Before publishing the website, review the following:
+
+- Replace all placeholder clinic information.
+- Confirm all service descriptions are accurate.
+- Verify doctor profile and credentials.
+- Use real and approved clinic photos.
+- Confirm clinic schedule and appointment process.
+- Review privacy, consent, and medical disclaimer wording.
+- Test the website on desktop, tablet, and mobile.
+- Make sure Call and Message buttons use the correct contact links.
+- Check that all forms, buttons, and navigation links work properly.
+
+---
+
+## Important Reminder
+
+This website is currently a clinic website concept.
+
+It does not store real appointments or patient records yet. If the clinic will accept real patient inquiries, the appointment form should be connected to a secure and approved system.
