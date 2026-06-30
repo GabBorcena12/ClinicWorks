@@ -132,12 +132,15 @@
             <div class="container">
                 <div class="section-heading section-heading--center reveal"><div><p class="eyebrow"><span></span> Why LifeNest</p><h2>Why Patients Choose LifeNest</h2></div><p>A calm, private, and professional clinic experience focused on women’s health and pregnancy care.</p></div>
                 <div class="why-grid card-grid--collapsible @(whyExpanded ? "is-expanded" : null)" id="why-cards">
-                    @foreach (var reason in Reasons)
+                    @foreach (var reason in GetVisibleItems(Reasons, whyExpanded, whyVisibleCount))
                     {
                         <article class="why-card reveal"><span class="why-card__number">@reason.Number</span><span class="why-card__icon">@reason.Icon</span><h3>@reason.Title</h3><p>@reason.Description</p></article>
                     }
                 </div>
-                <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="why-cards" aria-expanded="@(whyExpanded ? "true" : "false")" @onclick="() => whyExpanded = !whyExpanded">@(whyExpanded ? "Show Less" : "Show More") <span aria-hidden="true">@(whyExpanded ? "↑" : "↓")</span></button></div>
+                @if (ShouldShowToggle(Reasons, whyVisibleCount))
+                {
+                    <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="why-cards" aria-expanded="@whyExpanded.ToString().ToLowerInvariant()" @onclick="ToggleWhy">@(whyExpanded ? "Show Less" : "Show More")</button></div>
+                }
             </div>
         </section>
 
@@ -145,12 +148,15 @@
             <div class="container">
                 <div class="section-heading reveal"><div><p class="eyebrow"><span></span> Women’s health services</p><h2>OB-GYN Services Offered</h2></div><p>Essential women’s health services delivered with care, clarity, and professionalism.</p></div>
                 <div class="services-grid card-grid--collapsible @(servicesExpanded ? "is-expanded" : null)" id="service-cards">
-                    @foreach (var service in Services)
+                    @foreach (var service in GetVisibleItems(Services, servicesExpanded, servicesVisibleCount))
                     {
                         <article class="service-card service-card--icon reveal"><span class="service-card__badge">Women’s care</span><span class="service-card__icon">@service.Icon</span><h3>@service.Title</h3><p>@service.Description</p><a href="#appointment" aria-label="Book @service.Title">Learn more <span>→</span></a></article>
                     }
                 </div>
-                <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="service-cards" aria-expanded="@(servicesExpanded ? "true" : "false")" @onclick="() => servicesExpanded = !servicesExpanded">@(servicesExpanded ? "Show Less" : "Show More") <span aria-hidden="true">@(servicesExpanded ? "↑" : "↓")</span></button></div>
+                @if (ShouldShowToggle(Services, servicesVisibleCount))
+                {
+                    <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="service-cards" aria-expanded="@servicesExpanded.ToString().ToLowerInvariant()" @onclick="ToggleServices">@(servicesExpanded ? "Show Less" : "Show More")</button></div>
+                }
             </div>
         </section>
 
@@ -175,11 +181,16 @@
 
         <section class="section confidence-section section--tint" aria-labelledby="confidence-title">
             <div class="container"><div class="section-heading section-heading--center reveal"><div><p class="eyebrow"><span></span> Patient experience</p><h2 id="confidence-title">Patient Experience and Care Feedback</h2></div><p>Sample feedback showing the kind of calm, respectful, and professional experience LifeNest aims to provide.</p></div><div class="testimonial-grid card-grid--collapsible @(testimonialsExpanded ? "is-expanded" : null)" id="testimonial-cards">
-                @foreach (var testimonial in Testimonials)
+                @foreach (var testimonial in GetVisibleItems(Testimonials, testimonialsExpanded, testimonialsVisibleCount))
                 {
                     <article class="testimonial-card reveal"><div class="testimonial-card__top"><span class="testimonial-avatar">@testimonial.Initials</span><span><strong>@testimonial.Name</strong><small>@testimonial.Label</small></span><b aria-label="Five-star feedback sample">★★★★★</b></div><blockquote>“@testimonial.Quote”</blockquote><span class="quote-mark">”</span></article>
                 }
-            </div><div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="testimonial-cards" aria-expanded="@(testimonialsExpanded ? "true" : "false")" @onclick="() => testimonialsExpanded = !testimonialsExpanded">@(testimonialsExpanded ? "Show Less" : "Show More") <span aria-hidden="true">@(testimonialsExpanded ? "↑" : "↓")</span></button></div><p class="sample-note">Patient feedback samples are for website preview purposes.</p></div>
+            </div>
+            @if (ShouldShowToggle(Testimonials, testimonialsVisibleCount))
+            {
+                <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="testimonial-cards" aria-expanded="@testimonialsExpanded.ToString().ToLowerInvariant()" @onclick="ToggleTestimonials">@(testimonialsExpanded ? "Show Less" : "Show More")</button></div>
+            }
+            <p class="sample-note">Patient feedback samples are for website preview purposes.</p></div>
         </section>
 
         <section class="section section--blue" id="schedule">
@@ -199,12 +210,15 @@
             <div class="container">
                 <div class="section-heading reveal"><div><p class="eyebrow"><span></span> Our clinic environment</p><h2>A Calm and Comfortable Clinic Environment</h2></div><p>Designed to provide a clean, private, and welcoming space for every patient visit.</p></div>
                 <div class="gallery-grid card-grid--collapsible @(galleryExpanded ? "is-expanded" : null)" id="gallery-cards">
-                    @foreach (var space in ClinicSpaces)
+                    @foreach (var space in GetVisibleItems(ClinicSpaces, galleryExpanded, galleryVisibleCount))
                     {
                         <figure class="gallery-card @space.ClassName reveal"><img class="clinic-image" src="@space.ImagePath" alt="@space.Title at LifeNest Women’s Clinic" /><figcaption><span>@space.Number</span><strong>@space.Title</strong><small>@space.Description</small></figcaption></figure>
                     }
                 </div>
-                <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="gallery-cards" aria-expanded="@(galleryExpanded ? "true" : "false")" @onclick="() => galleryExpanded = !galleryExpanded">@(galleryExpanded ? "Show Less" : "Show More") <span aria-hidden="true">@(galleryExpanded ? "↑" : "↓")</span></button></div>
+                @if (ShouldShowToggle(ClinicSpaces, galleryVisibleCount))
+                {
+                    <div class="card-toggle-wrap"><button class="button button--ghost card-toggle" type="button" aria-controls="gallery-cards" aria-expanded="@galleryExpanded.ToString().ToLowerInvariant()" @onclick="ToggleGallery">@(galleryExpanded ? "Show Less" : "Show More")</button></div>
+                }
             </div>
         </section>
 
@@ -266,10 +280,25 @@
     private bool servicesExpanded;
     private bool testimonialsExpanded;
     private bool galleryExpanded;
+    private int whyVisibleCount = 4;
+    private int servicesVisibleCount = 4;
+    private int testimonialsVisibleCount = 3;
+    private int galleryVisibleCount = 4;
+    private DotNetObjectReference<Home>? cardVisibilityReference;
     private int? openFaq;
     private void ToggleMenu() => menuOpen = !menuOpen;
     private void CloseMenu() => menuOpen = false;
+    private void ToggleWhy() => whyExpanded = !whyExpanded;
+    private void ToggleServices() => servicesExpanded = !servicesExpanded;
+    private void ToggleTestimonials() => testimonialsExpanded = !testimonialsExpanded;
+    private void ToggleGallery() => galleryExpanded = !galleryExpanded;
     private void ToggleFaq(int index) => openFaq = openFaq == index ? null : index;
+
+    private static IEnumerable<T> GetVisibleItems<T>(IReadOnlyList<T> items, bool expanded, int visibleCount) =>
+        expanded ? items : items.Take(visibleCount);
+
+    private static bool ShouldShowToggle<T>(IReadOnlyList<T> items, int visibleCount) =>
+        items.Count > visibleCount;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -280,23 +309,52 @@
 
         navigationModule = await JS.InvokeAsync<IJSObjectReference>("import", "./navigation.js");
         await navigationModule.InvokeVoidAsync("initializeSectionNavigation");
+
+        cardVisibilityReference = DotNetObjectReference.Create(this);
+        await JS.InvokeVoidAsync("clinicWorksCardVisibility.initialize", cardVisibilityReference);
+    }
+
+    [JSInvokable]
+    public Task UpdateVisibleCounts(int why, int services, int testimonials, int gallery)
+    {
+        whyVisibleCount = Math.Max(1, why);
+        servicesVisibleCount = Math.Max(1, services);
+        testimonialsVisibleCount = Math.Max(1, testimonials);
+        galleryVisibleCount = Math.Max(1, gallery);
+
+        if (!ShouldShowToggle(Reasons, whyVisibleCount)) whyExpanded = false;
+        if (!ShouldShowToggle(Services, servicesVisibleCount)) servicesExpanded = false;
+        if (!ShouldShowToggle(Testimonials, testimonialsVisibleCount)) testimonialsExpanded = false;
+        if (!ShouldShowToggle(ClinicSpaces, galleryVisibleCount)) galleryExpanded = false;
+
+        return InvokeAsync(StateHasChanged);
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (navigationModule is null)
+        if (navigationModule is not null)
         {
-            return;
+            try
+            {
+                await navigationModule.InvokeVoidAsync("disposeSectionNavigation");
+                await navigationModule.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
         }
+
+        if (cardVisibilityReference is null) return;
 
         try
         {
-            await navigationModule.InvokeVoidAsync("disposeSectionNavigation");
-            await navigationModule.DisposeAsync();
+            await JS.InvokeVoidAsync("clinicWorksCardVisibility.dispose");
         }
         catch (JSDisconnectedException)
         {
         }
+
+        cardVisibilityReference.Dispose();
     }
 
     private readonly record struct InfoItem(string Icon, string Label, string Value, string Action, string Link);
