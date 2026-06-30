@@ -31,11 +31,13 @@ body>header{position:sticky;top:0;z-index:30;background:#fffffff5;border-bottom-
 
 /* Responsive card disclosure and media sizing */
 .card-toggle-wrap{display:block;text-align:center;margin-top:28px}.card-toggle{min-width:150px;justify-content:center}.card-toggle span{transition:transform .2s}.hero-art.hero-photo{width:100%;min-height:0;aspect-ratio:4/3}.hero-grid>*,.appointment>*{min-width:0}.appointment-photo.photo{width:100%;height:auto;min-height:0;aspect-ratio:16/9}.contacts b{overflow-wrap:anywhere}
+.card-toggle-wrap:has(>.card-toggle[hidden]){display:none}
+.expandable-item--hidden{display:none!important}
+[data-expand-toggle][hidden],.card-toggle-wrap[hidden]{display:none!important}
 @keyframes cardSectionReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:1000px){.hero{min-height:auto}.hero-grid{grid-template-columns:1fr;gap:42px}.hero-grid>div:first-child{max-width:760px}.hero-art.hero-photo{width:min(100%,680px);margin-inline:auto}.appointment{grid-template-columns:1fr;gap:42px}.appointment>div:first-child{width:100%}.appointment-photo.photo{max-width:720px}.formbox{width:100%}.card-toggle-wrap{display:block}}
 @media(max-width:700px){.hero{padding-block:48px 34px}.hero-art.hero-photo{min-height:0;aspect-ratio:4/3;border-radius:90px 20px 20px}.actions{align-items:stretch}.appointment{gap:34px}.appointment-photo.photo{aspect-ratio:4/3;margin-block:22px}.formbox form{grid-template-columns:1fr}.formbox form .wide{grid-column:auto}.why-grid,.testimonials,.gallery-grid{grid-template-columns:1fr}.gallery-grid{grid-template-rows:none;grid-auto-rows:225px}.gallery-grid figure:last-child{grid-column:auto}}
 @media(max-width:480px){.hero-photo aside{top:14px;right:14px;bottom:auto;left:auto}.photo-caption{left:14px;right:14px;bottom:14px}.appointment-photo.photo{aspect-ratio:1/1}.appointment-photo aside{left:12px;right:12px;bottom:12px}.card-toggle{width:100%;max-width:240px}}
-@media(prefers-reduced-motion:reduce){.card-grid--collapsible.is-expanded>*{animation:none}.card-toggle span{transition:none}}
 
 /* Focused responsive image, profile, gallery, and contact refinements */
 .hero-photo>img,.about-photo>img,.doctor-real>img,.gallery figure>img{display:block;width:100%;height:100%;object-fit:cover}.about-photo{width:100%;min-height:0;aspect-ratio:4/3}.doctor-real{min-width:0}.doctor>div,.split>div{min-width:0}.doctor p,.details b{overflow-wrap:anywhere}

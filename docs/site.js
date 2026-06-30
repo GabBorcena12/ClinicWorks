@@ -74,6 +74,7 @@ const updateExpandableSection=state=>{
   });
 
   state.button.hidden=!hasHiddenItems;
+  state.button.parentElement.hidden=!hasHiddenItems;
   state.button.textContent=state.expanded?'Show Less':'Show More';
   state.button.setAttribute('aria-expanded',String(state.expanded));
 };
